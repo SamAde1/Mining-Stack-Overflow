@@ -1,0 +1,11 @@
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(tidyr)
+library(readr)
+survey_df <- read.csv(file = "survey_results_public.csv")
+plot(survey_df$University)
+plot(survey_df$Country)
+summary(survey_df)
+sapply(survey_df, typeof)
+ 
