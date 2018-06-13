@@ -3,6 +3,10 @@ library(knitr)
 library(ggplot2)
 library(tidyr)
 library(readr)
+library(ggthemes)
+library(extrafont)
+library(plyr)
+library(scales)
 survey_df <- read.csv(file = "survey_results_public.csv", encoding = "UTF-8")
 
 # Plot University
@@ -10,7 +14,7 @@ plot(survey_df$University)
 
 # Bar Chart Plot Country
 plot(survey_df$Country)
-# summary(survey_df)
+summary(survey_df)
 # sapply(survey_df, class)
 
 # Table for Country
@@ -30,6 +34,15 @@ ggplot(Country_table, aes(x = Country, y = number, label = Country)) +
   scale_size(range = c(1,10)) +
   theme_bw()
 
-for ( i in seq(1,length( survey_df ),1) ) plot(survey_df[,i],ylab=names(survey_df[i]),type="l")
+ggplot() + 
+  geom_bar(aes(y = Salary, x = FormalEducation), data = survey_df,stat="identity") +
+  scale_x_discrete(labels = function(x) strwrap(x, width = 30)) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
+ggplot() + 
+  geom_bar(aes(y = Salary, x = JobSatisfaction), data = survey_df,stat="identity") +
+  #scale_x_discrete(labels = function(x) strwrap(x, width = 30)) +
+  #theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+View(survey_df)
   
