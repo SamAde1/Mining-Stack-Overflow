@@ -30,6 +30,23 @@ ggplot(Country_table, aes(x = Country, y = number, label = Country)) +
   scale_size(range = c(1,10)) +
   theme_bw()
 
-for ( i in seq(1,length( survey_df ),1) ) plot(survey_df[,i],ylab=names(survey_df[i]),type="l")
+for ( i in seq(1,length( survey_df ),1) ) plot(survey_df[,i],ylab=names(survey_df[i]))
 
-  
+for ( i in seq(1,length( survey_df ),1) ) 
+  ggplot(survey_df, aes(x = survey_df[,c(i)], )) + 
+    geom_bar() + 
+    xlab(colnames(survey_df)[i])
+
+
+# Bar Chart ggplot for Professional
+ggplot(survey_df, aes(x = Professional)) +
+  geom_bar() +
+  theme(axis.text.x=element_text(angle=90,hjust=1,vjust=1))
+
+# Bar Chart ggplot for ProgramHobby
+ggplot(survey_df, aes(x = survey_df[,c(3)])) +
+  geom_bar() +
+  xlab(colnames(survey_df)[3])
+
+
+View(survey_df)
