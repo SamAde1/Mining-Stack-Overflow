@@ -311,7 +311,7 @@ A parameter that is linked with Career Satisfaction is one in which the responde
 ```{r echo = FALSE,fig.keep='all', message=FALSE, warning=FALSE, fig.width=15, fig.height=15}
 
 
-survey_df$Overpaid <- factor(survey_df$Overpaid, levels = c("Greatly overpaid", "Somewhat overpaid", "Greatly underpaid", "Neither underpaid nor overpaid", "Somewhat underpaid"))
+survey_df$Overpaid <- factor(survey_df$Overpaid, levels = c("Somewhat underpaid", "Neither underpaid nor overpaid", "Greatly underpaid","Somewhat overpaid",  "Greatly overpaid"))
 
 
 overpaid_each_country <- survey_df[ , which(names(survey_df) %in% c("Overpaid","Country")), drop = FALSE]
@@ -325,19 +325,17 @@ overpaid_each_country <- overpaid_each_country[order(overpaid_each_country$freq)
   filter(!is.na(Overpaid)) %>%
   filter(Country %in% Country_Sum$Var1) 
   
-str(overpaid_each_country)
 
-overpaid_each_country$Overpaid <- factor(overpaid_each_country$Overpaid, levels = c("Greatly overpaid", "Somewhat overpaid", "Greatly underpaid", "Neither underpaid nor overpaid", "Somewhat underpaid"))
+overpaid_each_country$Overpaid <- factor(overpaid_each_country$Overpaid, levels = c("Somewhat underpaid", "Neither underpaid nor overpaid", "Greatly underpaid","Somewhat overpaid",  "Greatly overpaid"))
 
-print(levels(overpaid_each_country$Overpaid))
 
 ggplot(overpaid_each_country, aes(x = Overpaid, y = ..prop.., group = 1)) +
  geom_bar( color = "white", fill = "#42dff4") +
   facet_wrap(~ Country, nrow = 4)  +
-  aes(stringr::str_wrap(Overpaid, 10)) +
   ylab("Proportion of Respondents")+
   labs(title = "Are you Overpaid or Underpaid?") +
-  theme(axis.title.x=element_blank(), axis.text.y=element_text(size=12), axis.text.x = element_text(size=12), plot.title = element_text(size = 17))
+  theme(axis.title.x=element_blank(), axis.text.y=element_text(size=12), axis.text.x = element_text(size=12), plot.title = element_text(size = 17)) +
+  scale_x_discrete(labels = wrap_format(10))
 ```
 
 
@@ -471,11 +469,11 @@ ggplot(Undergrad_Race %>%
   theme_bw()+
   theme(legend.key = element_rect(colour = "black")) +
   guides(fill = guide_legend(override.aes = list(colour = NULL))) +
-  aes(stringr::str_wrap(FormalEducation, 15)) +
   labs(title = "Formal Education Completed by Race") +
   ylab("Number of Respondents") +
   theme(axis.text.y=element_text(size=14), axis.text.x = element_text(size=14), plot.title = element_text(size = 17))+
-  xlab("Highest level of formal education completed")
+  xlab("Highest level of formal education completed") +
+  scale_x_discrete(labels = wrap_format(20))
 ```
 
 But there are still a lot of non-formal ways of educating oneself. Especially about upcoming technologies in the industry. The most popular of the non-formal ways is *self-taught* education. This is understandable as Computer Science is a constantly changing and evolving field. So it can be important for Developers to keep up with the changes. This involves a lot of non-formal education, with self-taught education being the most easily accessible.
